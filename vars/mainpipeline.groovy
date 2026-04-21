@@ -1,11 +1,27 @@
-def call(Map config) {
+def call(String appName) {    
     pipeline {
         agent any
         stages {
-            stage('Download Code') { steps { checkout scm } }
-            stage('Build App') { steps { echo "Building ${config.appName}..." } }
-            stage('Security Scan') { steps { echo "Scanning ${config.appName} for bugs..." } }
-            stage('Deploy') { steps { echo "Deploying to Production..." } }
+            stage('Checkout') {
+                steps {
+                    checkout scm
+                }
+            }
+            stage('Build') {
+                steps {
+                    echo "Building Application: ${appName}"
+                }
+            }
+            stage('Test') {
+                steps {
+                    echo "Testing Application: ${appName}"
+                }
+            }
+            stage('Deploy') {
+                steps {
+                    echo "Deploying ${appName} to Production Server..."
+                }
+            }
         }
     }
 }
